@@ -1,0 +1,112 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0018)http://192.168.*.**/ -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><META content="IE=5.0000" 
+http-equiv="X-UA-Compatible">
+		 <TITLE>WEB SERVICE</TITLE>		 
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">		 
+<STYLE>
+			body {
+				margin-left:0px;
+				margin-top:0px;
+				margin-right:0px;
+				margin-bottom:0px;
+			}
+		</STYLE>
+		 
+<SCRIPT language="javascript">
+			function NotifyActiveX(p)
+			{
+				var ncx = document.getElementById('ncX');
+				if (ncx == null) return;
+				
+				var urla = document.URL.split('/'); // http://172.1.10.165/index.html
+				var dev = urla.length > 3 ? urla[2] : '172.1.44.94'; // for test: file://e:\projects\dvs\...
+				var address = dev.split(':'); // 172.1.10.2:81, www.higheasy.cn:81
+				try	{
+					ncx.SetDevice(address[0]);
+					ncx.SetURL(dev);
+				} 
+				catch (e) {
+				}
+			}
+		</SCRIPT>
+	 
+<META name="GENERATOR" content="MSHTML 11.00.10570.1001"></HEAD>	 
+<BODY scroll="no">
+<TABLE width="100%" height="100%">
+  <TBODY>
+  <TR>
+    <TD align="center" valign="middle">
+      <DIV id="downloaddiv" style="display: none;"><A id="showinnertext" style="text-decoration: none;" 
+      href="/ocxsetup.exe"></A>                 </DIV>
+      <OBJECT width="100%" height="100%" id="ncX" classid="CLSID:1B2DFD77-9849-47cc-93D0-A06BA50C6B9C" 
+      codebase="ocxsetup.exe#version=2,0,0,28523" onreadystatechange="NotifyActiveX(this)"></OBJECT> 
+                                  </TD></TR></TBODY></TABLE>
+<SCRIPT type="text/javascript">
+	function OnInit()
+	{
+		 var slControl=document.getElementById("ncX");  
+		 var isSilverlightInstalled = true;   
+		 
+		 
+ 	    oldVersion = slControl.Version
+  	    //alert("oldVersion " + oldVersion);
+     	
+	    if(oldVersion == undefined)
+	        isSilverlightInstalled = false;
+	    else
+	    {
+	        var curVerArr = new Array(2,0,0,28523);
+	        var oldVerArr = new Array(); 
+// 	        alert("oldver" + oldVersion);
+	        oldVerArr = oldVersion.split(".");
+	        for(var i = 0; i < oldVerArr.length; i++)
+	        {
+	          if(parseInt(oldVerArr[i]) < curVerArr[i])
+	          {
+	            isSilverlightInstalled = false;
+	            break;
+	          }
+	        }					
+	    }
+		if(isSilverlightInstalled == false)
+		{
+			
+		    var msgInfo = "请先安装插件！";
+		    var language = navigator.systemLanguage;
+		    if(language == undefined)
+		        language = navigator.language;
+		    language = language.toLowerCase();
+		    if (language == "zh-cn") {
+		        msgInfo = "若无法安装插件，请点击此处下载安装。";
+		    }
+		    else if (language == "zh-tw") {
+		        msgInfo = "若無法安裝插件，請點擊此處下載安裝。";
+		    }
+		    else {
+		        msgInfo = "If the plugin can not be installed, please click here to download and install it !";
+		    }
+		    //alert(msgInfo);
+		    try {
+		        var docitem = document.getElementById("downloaddiv");
+                docitem.style.display="";
+            }
+            catch(eee)
+            {
+                ShowError(eee);
+            }
+            try
+            {
+                var docitem=document.getElementById("showinnertext");
+                docitem.innerHTML=msgInfo;
+            }
+            catch(eee)
+            {
+                ShowError(eee);
+            }
+		}
+	}
+		
+		OnInit();
+</SCRIPT>
+	 </BODY></HTML>
